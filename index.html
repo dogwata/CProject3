@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Coiny|Righteous|Ubuntu+Mono" rel="stylesheet">
+    <title>Bubbles</title>
+  </head>
+  <body>
+    <!-- template for the polygraph component. -->
+    <script type="text/x-template" id="polygraph-template">
+      <g>
+        <polygon :points="points"></polygon>
+        <circle cx="100" cy="100" r="80"></circle>
+        <axis-label
+          v-for="(stat, index) in stats"
+          :stat="stat"
+          :index="index"
+          :total="stats.length">
+        </axis-label>
+      </g>
+    </script>
+
+    <!-- template for the axis label component. -->
+    <script type="text/x-template" id="axis-label-template">
+      <text :x="point.x" :y="point.y">{{stat.label}}</text>
+    </script>
+
+    <!-- demo root element -->
+    <div id="demo">
+      <!-- Use the component -->
+      <svg width="200" height="200">
+        <polygraph :stats="stats"></polygraph>
+      </svg>
+      <!-- controls -->
+      <div v-for="stat in stats">
+        <label>{{stat.label}}</label>
+        <input type="range" v-model="stat.value" min="0" max="100">
+        <span>{{stat.value}}</span>
+        <button @click="remove(stat)" class="remove">X</button>
+      </div>
+      <form id="add">
+        <input name="newlabel" v-model="newLabel">
+        <button @click="add">Add a Stat</button>
+      </form>
+      <pre id="raw">{{ stats }}</pre>
+    </div>
+
+    <p style="font-size:12px">* input[type="range"] requires IE10 or above.</p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>
