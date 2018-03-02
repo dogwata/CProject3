@@ -1,4 +1,3 @@
-// The raw data to observe
 var stats = [
   { label: 'A', value: 100 },
   { label: 'B', value: 100 },
@@ -8,12 +7,10 @@ var stats = [
   { label: 'F', value: 100 }
 ]
 
-// A resusable polygon graph component
 Vue.component('polygraph', {
   props: ['stats'],
   template: '#polygraph-template',
   computed: {
-    // a computed property for the polygon's points
     points: function () {
       var total = this.stats.length
       return this.stats.map(function (stat, i) {
@@ -23,7 +20,6 @@ Vue.component('polygraph', {
     }
   },
   components: {
-    // a sub component for the labels
     'axis-label': {
       props: {
         stat: Object,
@@ -44,7 +40,6 @@ Vue.component('polygraph', {
   }
 })
 
-// math helper...
 function valueToPoint (value, index, total) {
   var x     = 0
   var y     = -value * 0.8
@@ -59,7 +54,7 @@ function valueToPoint (value, index, total) {
   }
 }
 
-new Vue({
+var app = new Vue({
   el: '#demo',
   data: {
     newLabel: '',
